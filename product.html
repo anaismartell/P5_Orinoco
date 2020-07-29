@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="icon" href="images/favicon.ico"/>
+    
+    <title>Produits - Orinoco</title>
+  </head>
+  <body>
+
+    <!--Header-->
+    <header class="bg-light">
+      <div class="container">
+        <div class="row">
+          <nav class="col navbar navbar-expand-lg navbar-light">
+            <a class="navbar-brand" href="index.html">
+              <img
+                src="images/logo.png" width="150"height="60"alt="Logo Orinoco"
+            /></a>
+            <button
+              class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div id="navbarContent" class="collapse navbar-collapse">
+              <ul class="navbar-nav">
+                <li class="nav-item active">
+                  <a class="nav-link" href="index.html">Accueil</a>
+                </li>
+                <li class="nav-item panier">
+                  <a class="nav-link" href="panier.html">
+                    <i class="fas fa-shopping-basket"></i> Panier
+                    <span>0</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </header>
+    <!--Main, liste des produits-->
+    <main>
+        <h1>Personnalisez votre produit !</h1>
+        <div class="content_product"></div>
+    </main>
+  </body>
+  <script src="product.js"></script>
+  <script src="bootstrap.min.js"></script>
+</html>

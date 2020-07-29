@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="icon" href="images/favicon.ico"/>
+    
+    <title>Panier - Orinoco</title>
+  </head>
+  
+  <body>
+    <!--Header-->
+    <header class="bg-light">
+      <div class="container">
+        <div class="row">
+          <nav class="col navbar navbar-expand-lg navbar-light">
+            <a class="navbar-brand" href="index.html">
+              <img
+                src="images/logo.png"width="150"height="60" alt="Logo Orinoco"/></a>
+            <button class="navbar-toggler"type="button"data-toggle="collapse"data-target="#navbarContent"aria-controls="navbarSupportedContent"aria-expanded="false"aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div id="navbarContent" class="collapse navbar-collapse">
+              <ul class="navbar-nav">
+                <li class="nav-item active">
+                  <a class="nav-link" href="index.html">Accueil</a>
+                </li>
+                <li class="nav-item panier">
+                  <a class="nav-link" href="panier.html">
+                    <i class="fas fa-shopping-basket"></i> Panier
+                    <span>0</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </header>
+    <!--Main, liste du panier-->
+    <main class="container">
+      <div class="row my-4 headlines"></div>
+      <div class="row products-container border-dark"></div>
+      <div class="card border-dark form-container shadow my-3">
+        <div class="card-header text-center">
+          <h1>Pour valider votre commande</h3>
+        </div>
+        <div class="card-body">
+          <form class="form">
+            <div class="form-row my-3">
+              <label for="firstName" class="col-md-1 col-form-label">Prénom</label>
+              <div class="col-md-5">
+                <input type="text"class="form-control"id="firstName"placeholder="Prénom"required/>
+              </div>
+              <label for="lastName" class="col-md-1 col-form-label">Nom</label>
+              <div class="col-md-5">
+                <input type="text"class="form-control"id="lastName"placeholder="Nom"required/>
+              </div>
+            </div>
+            <div class="form-row my-3">
+              <label for="inputEmail" class="col-md-1 col-form-label">Email</label>
+              <div class="col-md-5">
+                <input type="email"class="form-control"id="inputEmail"placeholder="xxx@yyy.zzz"required/>
+              </div>
+              <label for="telephoneNumber" class="col-md-1 col-form-label">Tel</label>
+              <div class="col-md-5">
+                <input type="tel" maxlength="10" class="form-control"id="telephoneNumber"placeholder="0000000000"required/>
+              </div>
+            </div>
+            <div class="form-row my-3">
+              <label for="inputAddress" class="col-md-1 col-form-label">Adresse</label>
+              <div class="col-md-4">
+                <input type="text"class="form-control"id="inputAddress" placeholder="30 boulevard Napoléon"required/>
+              </div>
+              <label for="inputCity" class="col-md-1 col-form-label">Ville</label>
+              <div class="col-md-2">
+                <input type="text"class="form-control"id="inputCity"placeholder="Paris"required/>
+              </div>
+              <label for="inputZip" class="col-md-2 col-form-label">Code Postal</label>
+              <div class="col-md-2">
+                <input type="text"class="form-control"id="inputZip"placeholder="75000"required/>
+              </div>
+            </div>
+            <div class="text-center">
+              <button class="btn btn-danger order-submit">
+                Envoyer mes informations
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <a href="confirm.html" class="btn btn-primary col-6 offset-3 col-md-4 offset-md-4 my-4 disabled">Valider la commande</a>
+    </main>
+  </body>
+  <script src="panier.js"></script>
+  <script src="bootstrap.min.js"></script>
+</html>
