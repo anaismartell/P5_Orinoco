@@ -21,7 +21,7 @@ function affichagePanier() {
 
   // si il n'y a rien dans le panier, affiche "Le panier est vide!"
   if ( panier == null) {
-      var div = document.createElement("div")
+      let div = document.createElement("div")
       div.textContent = "Le panier est vide!"
       afficheProduitPanier.appendChild(div)
       console.log("Le panier est vide!!!!")
@@ -29,12 +29,16 @@ function affichagePanier() {
       //s'il y a qq chose, creer un tableau avec chaque article
       tableauPanier.innerHTML = ''
       Object.values(panier).map( (teddies) => {
-          let tr = document.createElement("tr")
-          afficheProduitPanier.appendChild(tr)
+            let tr = document.createElement("tr")
+            afficheProduitPanier.appendChild(tr)
           
               let name = document.createElement("td")
               name.textContent = teddies.name
               tr.appendChild(name)
+            
+              let image = document.createElement("td")
+              image.src = teddies.imageUrl
+              tr.appendChild(image)
 
               let couleur = document.createElement("td")
               couleur.textContent = teddies.colors
@@ -58,6 +62,5 @@ function affichagePanier() {
   }
 }
 affichagePanier()  
-
 
 

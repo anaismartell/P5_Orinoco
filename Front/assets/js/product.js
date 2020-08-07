@@ -74,6 +74,7 @@ function affichageProduit() {
     overlay.style.display='none';
     }   
 
+
     //bouton ajouter au panier
     let boutonPanier = document.getElementById("btn-ajouter")
         boutonPanier.textContent = "Ajouter au panier"
@@ -87,7 +88,7 @@ function affichageProduit() {
         })
 }
 
-
+// fonction calculant le prix total
 function prixTotal(){
     let price = parseInt(teddies.price/100);
     let prixDuPanier= JSON.stringify(sessionStorage.getItem('prixTotal'));
@@ -100,6 +101,7 @@ function prixTotal(){
   
   }
   
+  // fonction sauvegardant la panier et le total pour affichage dans la page panier et commande
   function ajoutSessionStorage(){
     let panier = sessionStorage.getItem('panier');
     panier = JSON.parse(panier);
@@ -121,4 +123,4 @@ function prixTotal(){
     sessionStorage.setItem("panier", JSON.stringify(panier));
   }
   
-  
+ 
