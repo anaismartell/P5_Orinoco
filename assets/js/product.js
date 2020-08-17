@@ -1,22 +1,21 @@
-// Méthode pour récupérer l'ID dans l'URL
+// je récupère l'id produit dans url grace à méthode URLSearchParams
 let urlSearchParams = new URLSearchParams(document.location.search)
-let id = urlSearchParams.get("id") // Retourne la valeur de l'id
+let id = urlSearchParams.get("id")
 console.log("Il a selectionné " +id)
 
-// Fonction et condition pour afficher un seul produit dans la page
-let request = new XMLHttpRequest()
-request.onreadystatechange = function() { // gestionnaire d'événement si l'attribut readyStatechange
-    if (this.readyState == 4 && this.status == 200) { // si la réponse est prêt est le statut est OK
-        teddies = JSON.parse(this.responseText) // 
+//  affiche un seul produit dans la page
+
+let request = new XMLHttpRequest() //crée un nouvel objet de type  XMLHttpRequest  qui correspond à notre objet AJAX
+request.onreadystatechange = function () { // gestionnaire d'événement si l'attribut readyStatechange
+    if (this.readyState == XMLHttpRequest.DONE && this.status == 200) { // si la réponse est prête est le statut est OK
+        teddies = JSON.parse(this.responseText)
         affichageProduit()
-    } else {
-        alert ="Le seveur ne répond pas"
     }
 };
-request.open("GET", "http://localhost:3000/api/teddies/" + id) // Initialise la requête
-request.send() // Envoi la requête
+request.open("GET", "http://localhost:3000/api/teddies/" + id)
+request.send()
 
-// Fonction affichage du produit
+// Affichage du produit
 function affichageProduit() {
 
     console.log("Le nom du produit est " + teddies.name)
@@ -24,14 +23,14 @@ function affichageProduit() {
     let titre = document.getElementById("titre")
     titre.textContent = teddies.name
     let prix = document.getElementById("prix")
-    prix.textContent = teddies.price/100 + " €" 
+    prix.textContent = teddies.price/100 + " €"
     let description = document.getElementById("description")
     description.textContent = teddies.description
     let image = document.getElementById("image")
     image.src = teddies.imageUrl
 
     //Création des couleurs
-    let couleurs= document.getElementById("color-select")
+    let couleurs = document.getElementById("color-select")
     let options = teddies.colors
     options.forEach(function(element, couleur) {
         couleurs[couleur] = new Option(element, element)
@@ -51,18 +50,19 @@ function affichageProduit() {
         window.location.href = "panier.html"
     })
 
-    //selection de la couleur
+    //sélection de la couleur
     let selectionCouleur = document.getElementById("color-select").addEventListener("change", function (e) {
         selectionCouleur = e.target.value;
         console.log("Il sélectionne la couleur : " + e.target.value);
     });
 
-    // selection du nombre de produit
+    // sélection de la quantité
     let quantiteProduit = document.getElementById("quantiteProduit").addEventListener('change', function (e) {
         quantiteProduit = e.target.value
         console.log("Il en veut :" + e.target.value)
     })
 
+    // Pop up confirmation d'ajout au panier
     let overlay = document.getElementById('overlay')
     function openMoadl() {
     overlay.style.display='block';
@@ -72,55 +72,62 @@ function affichageProduit() {
     btnClose.addEventListener('click',closeModal)
     function closeModal() {
     overlay.style.display='none';
-    }   
-
+    }  
 
     //bouton ajouter au panier
-    let boutonPanier = document.getElementById("btn-ajouter")
-        boutonPanier.textContent = "Ajouter au panier"
-        boutonPanier.addEventListener("click", function() {
+    const ajouter_panier = document.getElementById("btn-ajouter")
+        ajouter_panier.textContent = "Ajouter au panier"
+        ajouter_panier.addEventListener("click", function() {
+            if(selectionCouleur != undefined && quantiteProduit != undefined){
                 console.log("Il ajoute "+ quantiteProduit + " " + teddies.name + selectionCouleur + " au panier.")
                 teddies.colors = selectionCouleur
                 teddies.quantity = quantiteProduit
                 prixTotal()
                 ajoutSessionStorage()
                 openMoadl()
+            } else {
+                teddies.colors = teddies.colors[0]
+                teddies.quantity = 1
+                prixTotal()
+                ajoutSessionStorage()
+                openMoadl()
+            }
         })
+
 }
 
-// fonction calculant le prix total
+//j'enregistre le prix total dans sessionstorage pour le proposer dans la page panier et commande
 function prixTotal(){
-    let price = parseInt(teddies.price/100);
-    let prixDuPanier= JSON.stringify(sessionStorage.getItem('prixTotal'));
+    let price = parseInt(teddies.price);
+    let prixDuPanier = JSON.parse(sessionStorage.getItem('prixTotal'));
     
     if(prixDuPanier != null){
-        sessionStorage.setItem("prixTotal", prixDuPanier + (price* teddies.quantity));
+        sessionStorage.setItem("prixTotal", prixDuPanier + (price/100 * teddies.quantity));
     } else {
-        sessionStorage.setItem("prixTotal", price * teddies.quantity);
+        sessionStorage.setItem("prixTotal", price/100 * teddies.quantity);
     }
-  
-  }
-  
-  // fonction sauvegardant la panier et le total pour affichage dans la page panier et commande
-  function ajoutSessionStorage(){
+
+}
+
+function ajoutSessionStorage(){
     let panier = sessionStorage.getItem('panier');
     panier = JSON.parse(panier);
-  
+
     let name = teddies.name + teddies.colors;
     if(panier != null){
-        let element = panier[name]
-        if(element === undefined) {
+        let elem = panier[name]
+        if(elem === undefined) {
             panier = {...panier,  [name] : teddies}
         } else {
-            let quantity = parseInt(element.quantity);
+            let quantity = parseInt(elem.quantity);
             quantity += parseInt(teddies.quantity);
-            element.quantity = quantity;
+            elem.quantity = quantity;
         }
     } else {
         panier = {[name] : teddies}
-  
+
     }
     sessionStorage.setItem("panier", JSON.stringify(panier));
-  }
-  
- 
+}
+
+
