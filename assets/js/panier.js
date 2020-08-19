@@ -1,13 +1,14 @@
-//Pour afficher mon produit
+// Fonction affichage produit au panier
 function affichagePanier() {
     //je récupére mon produit dans session storage "panier"
     let panier = JSON.parse(sessionStorage.getItem("panier"))
     let prixTotal = JSON.parse(sessionStorage.getItem("prixTotal"))
     let prixPanier = document.getElementById('affichageTotal')
+    prixPanier.className = "text-center bg-info my-0 py-1"
   
     let tableauPanier = document.getElementById("afficheProduitPanier")
     
-    // affichage du prix total du panier si le panier
+    // affichage du prix total du panier si le panier:
     if (prixTotal != null) {
         prixPanier.textContent = 'Le montant de votre commande est de : ' + prixTotal +  ' €';
         prixPanier.id = 'prixTotal'; 
@@ -25,7 +26,7 @@ function affichagePanier() {
         afficheProduitPanier.appendChild(div)
         console.log("Le panier est vide!!!!")
     } else {
-        //s'il y a qq chose, creer un tableau avec chaque article
+        //s'il y a qq chose, créé un tableau contenant chaque produit
         tableauPanier.innerHTML = ''
         Object.values(panier).map((teddies) => {
             let tr = document.createElement("tr")
@@ -59,9 +60,7 @@ function affichagePanier() {
   affichagePanier()  
 
 
-
-  
-  //variables informations client
+  //création des variables d'informations client
   let orderButton = document.querySelector(".order-submit");
   let validationButton = document.querySelector(".btn-success");
   let firstName = document.querySelector("#firstName");
@@ -73,7 +72,7 @@ function affichagePanier() {
   let zip = document.querySelector("#inputZip");
 
   // création de l'objet général client
-class Client {
+  class Client {
     constructor(firstName, lastName, eMail, telephoneNumber, address, city, zip) {
       (this.firstName = firstName),
         (this.lastName = lastName),
@@ -87,14 +86,15 @@ class Client {
   
   //création d'un tableau avec les articles commandés
   let panier = JSON.parse(sessionStorage.getItem("panier"))
-  let productsIdList = [];
+  let listIdProduct = [];
   for (let i = 0; i < panier.length; i++) {
-  productsIdList.push(panier[i].iD);
+    listIdProduct.push(panier[i].iD);
   }
-  localStorage.setItem("products", JSON.stringify(productsIdList));
-  productsIdList = localStorage.getItem("products");
-  productsIdList = JSON.parse(productsIdList);
+  localStorage.setItem("products", JSON.stringify(listIdProduct ));
+  listIdProduct  = localStorage.getItem("products");
+  listIdProduct  = JSON.parse(listIdProduct );
  
+  // création du gestionnaire d'événement en cas de click sur le bouton submit
   orderButton.addEventListener("click", function (event) {
     event.preventDefault();
     //création du nouveau client
@@ -120,14 +120,12 @@ class Client {
           city: newClient.city,
           email: newClient.eMail,
         },
-        products: productsIdList,
+        products: listIdProduct,
       }),
     })
       .then((response) => {
         if (response.ok) {
-          alert(
-            "Vos informations ont bien été enregistrées. Vous pouvez à présent valider votre commande"
-          );
+          alert("Vos informations ont bien été enregistrées. Vous pouvez à présent valider votre commande.");
           validationButton.classList.remove("disabled");
           return response.json();
         } else {

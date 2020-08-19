@@ -1,21 +1,20 @@
-/// je récupère l'id produit dans url grace à méthode URLSearchParams
+/// récupération de l'id produit dans l'url grace à méthode URLSearchParams
 let urlSearchParams = new URLSearchParams(document.location.search)
 let id = urlSearchParams.get("id")
 console.log("Il a selectionné " +id)
 
-//  affiche un seul produit dans la page
-
+//  affichage d'un produit dans la page
 let request = new XMLHttpRequest() //crée un nouvel objet de type  XMLHttpRequest  qui correspond à notre objet AJAX
 request.onreadystatechange = function () { // gestionnaire d'événement si l'attribut readyStatechange
-    if (this.readyState == XMLHttpRequest.DONE && this.status == 200) { // si la réponse est prête est le statut est OK
+    if (this.readyState == XMLHttpRequest.DONE && this.status == 200) { // si la réponse est prête et le statut est OK
         teddies = JSON.parse(this.responseText)
-        affichageProduit()
+        affichageProduit() // appel de la fonction
     }
 };
-request.open("GET", "http://localhost:3000/api/teddies/" + id)
-request.send()
+request.open("GET", "http://localhost:3000/api/teddies/" + id) // initialisation de la requête
+request.send() // envoi de la requête
 
-// Affichage du produit
+// création de la fonctin d'affichage du produit
 function affichageProduit() {
 
     console.log("Le nom du produit est " + teddies.name)
@@ -101,7 +100,7 @@ function affichageProduit() {
         })
 }
 
-//j'enregistre le prix total dans sessionstorage pour le proposer dans la page panier et commande
+//enregistrement du prix total dans sessionstorage pour le proposer dans la page panier et commande
 function prixTotal(){
     let price = parseInt(teddies.price);
     let prixDuPanier = JSON.parse(sessionStorage.getItem('prixTotal'));
@@ -114,19 +113,20 @@ function prixTotal(){
 
 }
 
+// création de la fonction ajout dans sessionstorage
 function ajoutSessionStorage(){
     let panier = sessionStorage.getItem('panier');
     panier = JSON.parse(panier);
 
     let name = teddies.name + teddies.colors;
     if(panier != null){
-        let elem = panier[name]
-        if(elem === undefined) {
+        let element = panier[name]
+        if(element === undefined) {
             panier = {...panier,  [name] : teddies}
         } else {
-            let quantity = parseInt(elem.quantity);
+            let quantity = parseInt(element.quantity);
             quantity += parseInt(teddies.quantity);
-            elem.quantity = quantity;
+            element.quantity = quantity;
         }
     } else {
         panier = {[name] : teddies}
