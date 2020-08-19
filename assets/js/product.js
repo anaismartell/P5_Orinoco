@@ -1,4 +1,4 @@
-// je récupère l'id produit dans url grace à méthode URLSearchParams
+/// je récupère l'id produit dans url grace à méthode URLSearchParams
 let urlSearchParams = new URLSearchParams(document.location.search)
 let id = urlSearchParams.get("id")
 console.log("Il a selectionné " +id)
@@ -75,12 +75,18 @@ function affichageProduit() {
     }  
 
     //bouton ajouter au panier
-    const ajouter_panier = document.getElementById("btn-ajouter")
+    let ajouter_panier = document.getElementById("btn-ajouter")
         ajouter_panier.textContent = "Ajouter au panier"
         ajouter_panier.addEventListener("click", function() {
             if(selectionCouleur != undefined && quantiteProduit != undefined){
                 console.log("Il ajoute "+ quantiteProduit + " " + teddies.name + selectionCouleur + " au panier.")
                 teddies.colors = selectionCouleur
+                teddies.quantity = quantiteProduit
+                prixTotal()
+                ajoutSessionStorage()
+                openMoadl()
+            } else if (selectionCouleur == undefined && quantiteProduit != undefined) {
+                teddies.colors = teddies.colors[0]
                 teddies.quantity = quantiteProduit
                 prixTotal()
                 ajoutSessionStorage()
@@ -93,7 +99,6 @@ function affichageProduit() {
                 openMoadl()
             }
         })
-
 }
 
 //j'enregistre le prix total dans sessionstorage pour le proposer dans la page panier et commande
@@ -129,5 +134,3 @@ function ajoutSessionStorage(){
     }
     sessionStorage.setItem("panier", JSON.stringify(panier));
 }
-
-
