@@ -5,16 +5,16 @@ console.log("Il a selectionné " +id)
 
 //  affichage d'un produit dans la page
 let request = new XMLHttpRequest() //crée un nouvel objet de type  XMLHttpRequest  qui correspond à notre objet AJAX
-request.onreadystatechange = function () { // gestionnaire d'événement si l'attribut readyStatechange
+request.onreadystatechange = function () { // gestionnaire d'événement si l'attribut readyState change
     if (this.readyState == XMLHttpRequest.DONE && this.status == 200) { // si la réponse est prête et le statut est OK
-        teddies = JSON.parse(this.responseText)
+        teddies = JSON.parse(this.responseText) // renvoie la réponse sous la forme d'un string
         affichageProduit() // appel de la fonction
-    }
+    }  
 };
 request.open("GET", "http://localhost:3000/api/teddies/" + id) // initialisation de la requête
 request.send() // envoi de la requête
 
-// création de la fonctin d'affichage du produit
+// création de la fonction d'affichage du produit
 function affichageProduit() {
 
     console.log("Le nom du produit est " + teddies.name)

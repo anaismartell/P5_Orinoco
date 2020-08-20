@@ -3,7 +3,7 @@ let url = "http://localhost:3000/api/teddies"
 
 // Récupération des données de l'API grâce à fetch
 fetch(url)
-    .then(teddies => teddies.json())// Retourner une promesse contenant en réponse l'objet teddies au bon format
+    .then(teddies => teddies.json())// Retourner une promesse contenant en réponse l'objet teddies au format js
     .then(teddies =>{
         // Création de la boucle pour récupérer chaque élément
         teddies.forEach(({_id, name, description, price, imageUrl}) =>{

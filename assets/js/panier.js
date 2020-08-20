@@ -57,7 +57,7 @@ function affichagePanier() {
         })
     }
   }
-  affichagePanier()  
+  affichagePanier() // appel de la 
 
 
   //création des variables d'informations client
@@ -94,7 +94,7 @@ function affichagePanier() {
   listIdProduct  = localStorage.getItem("products");
   listIdProduct  = JSON.parse(listIdProduct );
  
-  // création du gestionnaire d'événement en cas de click sur le bouton submit
+  // création du gestionnaire d'événement en cas de clic sur le bouton submit
   orderButton.addEventListener("click", function (event) {
     event.preventDefault();
     //création du nouveau client
