@@ -123,17 +123,20 @@ function affichagePanier() {
         products: listIdProduct,
       }),
     })
-      .then((response) => {
-        if (response.ok) {
-          alert("Vos informations ont bien été enregistrées. Vous pouvez à présent valider votre commande.");
-          validationButton.classList.remove("disabled");
-          return response.json();
-        } else {
-          alert("Merci de renseigner les champs manquants.");
-        }
-      })
-      .then((data) => {
-        localStorage.setItem("orderInfos", JSON.stringify(data));
-      })
-      .catch((error) => console.log("erreur de type : ", error));
-  });
+    .then((response) => {
+      if (response.ok && eMail.value.includes("@")) {
+        alert("Vos informations ont bien été enregistrées. Vous pouvez à présent valider votre commande.");
+        validationButton.classList.remove("disabled");
+        return response.json();
+      } else if (!eMail.value.includes("@")){
+        alert("Merci de renseigner une adresse mail valide.");
+        eMail.style.borderColor = "red"
+      } else {
+        alert("Merci de renseigner les champs manquants.");
+      }
+    })
+    .then((data) => {
+      localStorage.setItem("orderInfos", JSON.stringify(data));
+    })
+    .catch((error) => console.log("erreur de type : ", error));
+});
