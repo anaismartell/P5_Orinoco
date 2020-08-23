@@ -17,4 +17,5 @@ affichageNom.textContent = `${nameGet.contact.firstName} ${nameGet.contact.lastN
 //reset le panier au départ de la page
 window.addEventListener("unload", function () {
   localStorage.clear();
+  sessionStorage.clear();
 });
