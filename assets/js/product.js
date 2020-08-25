@@ -1,7 +1,7 @@
 /// récupération de l'id produit dans l'url grace à méthode URLSearchParams
 let urlSearchParams = new URLSearchParams(document.location.search)
 let id = urlSearchParams.get("id")
-console.debug("Il a selectionné " +id)
+console.log("Il a selectionné " +id)
 
 //  affichage d'un produit dans la page
 let request = new XMLHttpRequest() //crée un nouvel objet de type  XMLHttpRequest  qui correspond à notre objet AJAX
@@ -17,7 +17,7 @@ request.send() // envoi de la requête
 // création de la fonction d'affichage du produit
 function affichageProduit() {
 
-    console.debug("Le nom du produit est " + teddies.name)
+    console.log("Le nom du produit est " + teddies.name)
 
     let titre = document.getElementById("titre")
     titre.textContent = teddies.name
@@ -52,34 +52,30 @@ function affichageProduit() {
     //sélection de la couleur
     let selectionCouleur = document.getElementById("color-select").addEventListener("change", function (e) {
         selectionCouleur = e.target.value;
-        console.debug("Il sélectionne la couleur : " + e.target.value);
     });
 
     // sélection de la quantité
     let quantiteProduit = document.getElementById("quantiteProduit").addEventListener('change', function (e) {
         quantiteProduit = e.target.value
-        console.debug("Il en veut :" + e.target.value)
     })
-
 
     // Pop up confirmation d'ajout au panier
     let overlay = document.getElementById('overlay')
     function openMoadl() {
     overlay.style.display='block';
     }
-
     let btnClose = document.getElementById('btnClose')
     btnClose.addEventListener('click',closeModal)
     function closeModal() {
     overlay.style.display='none';
+    window.location.href = "panier.html"
     }  
-  
+
     //bouton ajouter au panier
     let ajouter_panier = document.getElementById("btn-ajouter")
         ajouter_panier.textContent = "Ajouter au panier"
         ajouter_panier.addEventListener("click", function() {
             if(selectionCouleur != undefined && quantiteProduit != undefined){
-                console.log("Il ajoute "+ quantiteProduit + " " + teddies.name + selectionCouleur + " au panier.")
                 teddies.colors = selectionCouleur
                 teddies.quantity = quantiteProduit
                 prixTotal()
@@ -102,9 +98,8 @@ function affichageProduit() {
                 teddies.quantity = 1
                 prixTotal()
                 ajoutSessionStorage()
-                alert("Votre article a bien été ajouté au panier")
-                window.location.reload();
-            }
+                openMoadl()
+                }
         })
 }
 
