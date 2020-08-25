@@ -1,7 +1,6 @@
 /// récupération de l'id produit dans l'url grace à méthode URLSearchParams
 let urlSearchParams = new URLSearchParams(document.location.search)
 let id = urlSearchParams.get("id")
-console.log("Il a selectionné " +id)
 
 //  affichage d'un produit dans la page
 let request = new XMLHttpRequest() //crée un nouvel objet de type  XMLHttpRequest  qui correspond à notre objet AJAX
@@ -16,8 +15,6 @@ request.send() // envoi de la requête
 
 // création de la fonction d'affichage du produit
 function affichageProduit() {
-
-    console.log("Le nom du produit est " + teddies.name)
 
     let titre = document.getElementById("titre")
     titre.textContent = teddies.name
@@ -68,7 +65,7 @@ function affichageProduit() {
     btnClose.addEventListener('click',closeModal)
     function closeModal() {
     overlay.style.display='none';
-    window.location.href = "panier.html"
+    window.location.href = "index.html"
     }  
 
     //bouton ajouter au panier
