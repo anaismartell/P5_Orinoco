@@ -1,8 +1,8 @@
 // Fonction affichage produit au panier
 function affichagePanier() {
-  //je récupére mon produit dans session storage "panier"
-  let panier = JSON.parse(sessionStorage.getItem("panier"))
-  let prixTotal = JSON.parse(sessionStorage.getItem("prixTotal"))
+  //je récupére mon produit dans local storage "panier"
+  let panier = JSON.parse(localStorage.getItem("panier"))
+  let prixTotal = JSON.parse(localStorage.getItem("prixTotal"))
   let prixPanier = document.getElementById('affichageTotal')
   prixPanier.className = "text-center bg-info my-0 py-1"
 
@@ -85,7 +85,7 @@ function Client (firstName, lastName, eMail, telephoneNumber, address, city, zip
   }
 
 //création d'un tableau avec les articles commandés
-let panier = JSON.parse(sessionStorage.getItem("panier"))
+let panier = JSON.parse(localStorage.getItem("panier"))
 let listIdProduct = [];
 for (let i = 0; i < panier.length; i++) {
   listIdProduct.push(panier[i].iD);

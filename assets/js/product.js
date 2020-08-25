@@ -76,45 +76,45 @@ function affichageProduit() {
                 teddies.colors = selectionCouleur
                 teddies.quantity = quantiteProduit
                 prixTotal()
-                ajoutSessionStorage()
+                ajoutLocalStorage()
                 openMoadl()
             } else if (selectionCouleur == undefined && quantiteProduit != undefined) {
                 teddies.colors = teddies.colors[0]
                 teddies.quantity = quantiteProduit
                 prixTotal()
-                ajoutSessionStorage()
+                ajoutLocalStorage()
                 openMoadl()
             } else if (selectionCouleur != undefined && quantiteProduit == undefined) {
                 teddies.colors = selectionCouleur
                 teddies.quantity = 1
                 prixTotal()
-                ajoutSessionStorage()
+                ajoutLocalStorage()
                 openMoadl()
             } else {
                 teddies.colors = teddies.colors[0]
                 teddies.quantity = 1
                 prixTotal()
-                ajoutSessionStorage()
+                ajoutLocalStorage()
                 openMoadl()
                 }
         })
 }
 
-//enregistrement du prix total dans sessionstorage pour le proposer dans la page panier et commande
+//enregistrement du prix total dans localstorage pour le proposer dans la page panier et commande
 function prixTotal(){
     let price = parseInt(teddies.price);
-    let prixDuPanier = JSON.parse(sessionStorage.getItem('prixTotal'));
+    let prixDuPanier = JSON.parse(localStorage.getItem('prixTotal'));
     
     if(prixDuPanier != null){
-        sessionStorage.setItem("prixTotal", prixDuPanier + (price/100 * teddies.quantity));
+        localStorage.setItem("prixTotal", prixDuPanier + (price/100 * teddies.quantity));
     } else {
-        sessionStorage.setItem("prixTotal", price/100 * teddies.quantity);
+        localStorage.setItem("prixTotal", price/100 * teddies.quantity);
     }
 }
 
-// création de la fonction ajout dans sessionstorage
-function ajoutSessionStorage(){
-    let panier = sessionStorage.getItem('panier');
+// création de la fonction ajout dans localstorage
+function ajoutLocalStorage(){
+    let panier = localStorage.getItem('panier');
     panier = JSON.parse(panier);
 
     let name = teddies.name + teddies.colors;
@@ -131,5 +131,5 @@ function ajoutSessionStorage(){
         panier = {[name] : teddies}
 
     }
-    sessionStorage.setItem("panier", JSON.stringify(panier));
+    localStorage.setItem("panier", JSON.stringify(panier));
 }

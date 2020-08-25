@@ -3,7 +3,7 @@ let affichagePrixTotal = document.querySelector(".totalPrice span");
 let affichageID = document.querySelector(".commandeID span");
 let orderInfo = localStorage.getItem("orderInfos");
 orderInfo = JSON.parse(localStorage.orderInfos);
-let prixTotal = JSON.parse(sessionStorage.getItem("prixTotal"))
+let prixTotal = JSON.parse(localStorage.getItem("prixTotal"))
 let orderId = orderInfo.orderId;
 let affichageNom= document.querySelector(".name");
 let nameGet = localStorage.getItem("orderInfos");
@@ -17,5 +17,4 @@ affichageNom.textContent = `${nameGet.contact.firstName} ${nameGet.contact.lastN
 //reset le panier au départ de la page
 window.addEventListener("unload", function () {
   localStorage.clear();
-  sessionStorage.clear();
 });
