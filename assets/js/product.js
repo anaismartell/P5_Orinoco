@@ -102,33 +102,33 @@ function affichageProduit() {
 
 //enregistrement du prix total dans localstorage pour le proposer dans la page panier et commande
 function prixTotal(){
-    let price = parseInt(teddies.price);
-    let prixDuPanier = JSON.parse(localStorage.getItem('prixTotal'));
+    let price = parseInt(teddies.price); // je récupère le prix des ourson et le stock dans une variable
+    let prixDuPanier = JSON.parse(localStorage.getItem('prixTotal')); // je recupère le prix total dans le storage et le stocke dans la variable 
     
-    if(prixDuPanier != null){
-        localStorage.setItem("prixTotal", prixDuPanier + (price/100 * teddies.quantity));
-    } else {
+    if(prixDuPanier != null){ // s'il y a queque chose dans le panier
+        localStorage.setItem("prixTotal", prixDuPanier + (price/100 * teddies.quantity)); // alors créé une donnée prix Total qui va correspondre à la somme de ce qu'il y a déjà dans le panier + du prix de l'ourson x la quantité 
+    } else { // alors créé un prix total qui corresponde au prix de l'ourson x sa quantité
         localStorage.setItem("prixTotal", price/100 * teddies.quantity);
     }
 }
 
 // création de la fonction ajout dans localstorage
 function ajoutLocalStorage(){
-    let panier = localStorage.getItem('panier');
-    panier = JSON.parse(panier);
+    let panier = localStorage.getItem('panier'); // variable stock la donnée panier 
+    panier = JSON.parse(panier); // conversion format js
 
     let name = teddies.name + teddies.colors;
-    if(panier != null){
-        let element = panier[name]
-        if(element === undefined) {
-            panier = {...panier,  [name] : teddies}
-        } else {
-            let quantity = parseInt(element.quantity);
+    if(panier != null){ // s'il y a quelque chose dans le panier 
+        let element = panier[name] // la variable element se créé et correspond au panier 
+        if(element === undefined) { // si l'élement a ajouté dans le panier n'est pas le même
+            panier = {...panier,  [name] : teddies} // ajoute au panier tous les caractéristiques de teddies
+        } else { // sinon ne créé pas un nouvel objet mais ajoute + le nombre de quantité dans la colonne quantité
+            let quantity = parseInt(element.quantity); 
             quantity += parseInt(teddies.quantity);
             element.quantity = quantity;
         }
     } else {
-        panier = {[name] : teddies}
+        panier = {[name] : teddies} 
 
     }
     localStorage.setItem("panier", JSON.stringify(panier));

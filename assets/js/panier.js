@@ -61,6 +61,8 @@ affichagePanier() // appel de la fonction
 
 
 
+
+
 //création des variables d'informations client
 let orderButton = document.querySelector(".order-submit");
 let validationButton = document.querySelector(".validation");
@@ -95,6 +97,13 @@ listIdProduct  = localStorage.getItem("products");
 listIdProduct  = JSON.parse(listIdProduct );
 
 
+// création du gestionnaire d'événement en cas de clic sur le bouton submit
+if (panier == null){
+  alert("Votre panier est vide vous ne pouvez pas passer commande.")
+} else {
+orderButton.classList.remove("disabled");
+}
+
 // fonction qui permet de valider chaque input
 function validationInput (){
   let regexEmail = /^[a-zA-Z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$/
@@ -116,30 +125,29 @@ function validationInput (){
   } else {
     alert("Vos informations ont bien été enregistrées. Vous pouvez à présent valider votre commande.");
     validationButton.classList.remove("disabled");
+    send () // si tout est ok on créé un nouveau client et on envoie au serveur
   }
 }
 
-// création du gestionnaire d'événement en cas de clic sur le bouton submit
-  if (panier == null){
-    alert("Votre panier est vide vous ne pouvez pas passer commande.")
-  } else {
-  orderButton.classList.remove("disabled");
+// Gestionnaire événément en cas de clic sur confirmer
   orderButton.addEventListener("click", function (event) {
   event.preventDefault();
-  //création du nouveau client
-  let newClient = new Client(
-    firstName.value,
-    lastName.value,
-    eMail.value,
-    telephoneNumber.value,
-    address.value,
-    city.value,
-    zip.value
-  );
+  validationInput() // appel de la fonction on vérfie les inputs
+  });
 
-  validationInput()
-
-  //POST à l'API
+  //création fonction send 
+  function send() {
+    // Création nouveau client
+    let newClient = new Client(
+      firstName.value,
+      lastName.value,
+      eMail.value,
+      telephoneNumber.value,
+      address.value,
+      city.value,
+      zip.value
+    );
+  // POST API
   fetch("http://localhost:3000/api/teddies/order", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -163,4 +171,4 @@ function validationInput (){
     localStorage.setItem("orderInfos", JSON.stringify(data));
   })
   .catch((error) => console.log("erreur de type : ", error));
-})};
+  }
